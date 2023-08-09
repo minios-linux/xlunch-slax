@@ -3,54 +3,41 @@ LDFLAGS = -lImlib2 -lX11
 CFLAGS ?= -O2 -s
 #CFLAGS ?= -ggdb -g3 # For debugging
 
-all: xlunch entries.dsv
+all: xlunch
 
 install: xlunch
-	mkdir -p $(DESTDIR)/etc/xlunch/
-	mkdir -p $(DESTDIR)/usr/share/xlunch/svgicons/
 	mkdir -p $(DESTDIR)/usr/bin/
-	mkdir -p $(DESTDIR)/usr/share/icons/hicolor/48x48/apps
-	mkdir -p $(DESTDIR)/usr/share/applications
-	cp extra/ghost.png $(DESTDIR)/usr/share/icons/hicolor/48x48/apps/xlunch_ghost.png
-	cp docs/logo.png $(DESTDIR)/usr/share/icons/hicolor/48x48/apps/xlunch.png
-	cp xlunch $(DESTDIR)/usr/bin/
-	cp extra/genentries $(DESTDIR)/usr/bin
+	cp xlunch $(DESTDIR)/usr/bin
 	cp extra/gentriesquick $(DESTDIR)/usr/bin/xlunch_genquick
-	cp extra/updateentries $(DESTDIR)/usr/bin
-	cp extra/genentries.desktop.sh $(DESTDIR)/usr/bin
-	cp extra/genentries.desktop $(DESTDIR)/usr/share/applications/
-	cp default.conf $(DESTDIR)/etc/xlunch/default.conf
-	bash extra/genentries --path $(DESTDIR)/usr/share/xlunch/svgicons/ > $(DESTDIR)/etc/xlunch/entries.dsv
-	cp -r svgicons/ $(DESTDIR)/usr/share/xlunch/ 2>/dev/null || :
+	mkdir -p $(DESTDIR)/usr/share/icons/hicolor/48x48/apps/
+	cp extra/ghost.png $(DESTDIR)/usr/share/icons/hicolor/48x48/apps/xlunch_ghost.png
+	mkdir -p  $(DESTDIR)/usr/share/icons/hicolor/128x128/actions/
+	cp slax/logout.png $(DESTDIR)/usr/share/icons/hicolor/128x128/actions/logout.png
+	cp slax/restart.png $(DESTDIR)/usr/share/icons/hicolor/128x128/actions/restart.png
+	cp slax/shutdown.png $(DESTDIR)/usr/share/icons/hicolor/128x128/actions/shutdown.png
+	mkdir -p $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/
+	cp slax/chromium.png $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/chromium.png
+	cp slax/terminal.png $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/terminal.png
+	cp slax/xlunch_highlight.png $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/xlunch_highlight.png
+	mkdir -p $(DESTDIR)/etc/xlunch
+	cp slax/entries.dsv $(DESTDIR)/etc/xlunch/entries.dsv
+	cp slax/logout.dsv $(DESTDIR)/etc/xlunch/logout.dsv
 
 remove:
-	rm -r $(DESTDIR)/etc/xlunch
-	rm -r $(DESTDIR)/usr/share/xlunch
 	rm $(DESTDIR)/usr/bin/xlunch
-	rm $(DESTDIR)/usr/bin/genentries
-	rm $(DESTDIR)/usr/bin/updateentries
-	rm $(DESTDIR)/usr/bin/genentries.desktop.sh
+	rm $(DESTDIR)/usr/bin/xlunch_genquick
 	rm $(DESTDIR)/usr/share/icons/hicolor/48x48/apps/xlunch_ghost.png
-	rm $(DESTDIR)/usr/share/icons/hicolor/48x48/apps/xlunch.png
-	rm $(DESTDIR)/usr/share/applications/genentries.desktop
-
-livetest: xlunch
-	./extra/gentriesquick > /tmp/xlunch-tmp.dsv
-	./xlunch -g extra/wp.jpg -f "extra/OpenSans-Regular.ttf/10" -i /tmp/xlunch-tmp.dsv -b 140 --iconpadding 20 --textpadding 10 --paddingswap --leastmargin 10 --scroll || true
-	rm -f /tmp/xlunch-tmp.dsv
-
-test: xlunch
-	./xlunch -g extra/wp.jpg -f "extra/OpenSans-Regular.ttf/10" -i extra/sample_entries.dsv -b 140 --outputonly --iconpadding 20 --textpadding 10 --paddingswap --leastmargin 10 --highlight extra/highlight.png
+	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/actions/logout.png
+	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/actions/restart.png
+	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/actions/shutdown.png
+	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/chromium.png
+	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/terminal.png
+	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/xlunch_highlight.png
+	rm $(DESTDIR)/etc/xlunch/entries.dsv
+	rm $(DESTDIR)/etc/xlunch/logout.dsv
 
 xlunch: xlunch.c
 	$(CC) xlunch.c -o xlunch $(LDFLAGS) $(CFLAGS)
 
-entries.dsv:
-	bash extra/genentries > entries.dsv
-
 clean:
 	rm -f xlunch
-	rm -f entries.dsv
-
-release:
-	bash extra/makerelease
