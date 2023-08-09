@@ -1,33 +1,11 @@
-# xlunch
-Graphical app launcher for X, using pure Xlib and Imlib2.
+# xlunch-slax
+Adapting the xlunch source code to build a package for use in MiniOS Flux (a Slax clone from the MiniOS team).
 
-# website
-
-detailed info at: http://www.xlunch.org/
-
-# compile and test with:
-
-    make test
-
-on some distros `libimlib2-dev` and `libx11` are needed for compilation.
-
-For Ubuntu and other Debian-based distros, do: 
-
-``` sh
-sudo apt install libimlib2-dev libx11-dev
-```
-
-For Fedora: 
-
+# building
 ```sh
-sudo dnf install imlib2-devel libX11-devel
+git clone https://github.com/minios-linux/xlunch-slax.git
+mv xlunch-slax xlunch-slax-4.7.5
+cd xlunch-slax-4.7.5
+dh_make --createorig -s -y
+dpkg-buildpackage -rfakeroot -uc -us
 ```
-
-# screenshots
-
-![Screenshot](/../Screenshot/screenshot.png?raw=true "Screenshot")
-
-![Screenshot](/../Screenshot/screenshot2.png?raw=true "Screenshot")
-
-Version 3 of xlunch added a lot of customization options, here are some of them in use:
-![Screenshot](/../Screenshot/screenshot3.png?raw=true "Screenshot")
