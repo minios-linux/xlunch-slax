@@ -1,0 +1,38 @@
+Description: Added MiniOS Flux application icons
+ .
+ xlunch-slax (4.7.5-2) unstable; urgency=medium
+ .
+   * Added MiniOS Flux application icons
+Author: crims0n <crims0n@minios.dev>
+
+---
+Last-Update: 2024-04-15
+
+--- xlunch-slax-4.7.5.orig/Makefile
++++ xlunch-slax-4.7.5/Makefile
+@@ -18,6 +18,10 @@ install: xlunch
+ 	mkdir -p $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/
+ 	cp slax/chromium.png $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/chromium.png
+ 	cp slax/terminal.png $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/terminal.png
++	cp slax/chromium.png $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/chromium.png
++	cp slax/firefox.png $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/firefox.png
++	cp slax/installer.png $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/installer.png
++	cp slax/configurator.png $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/configurator.png
+ 	cp slax/xlunch_highlight.png $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/xlunch_highlight.png
+ 	mkdir -p $(DESTDIR)/etc/xlunch
+ 	cp slax/entries.dsv $(DESTDIR)/etc/xlunch/entries.dsv
+@@ -32,6 +36,9 @@ remove:
+ 	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/actions/shutdown.png
+ 	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/chromium.png
+ 	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/terminal.png
++	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/firefox.png
++	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/installer.png
++	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/configurator.png
+ 	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/xlunch_highlight.png
+ 	rm $(DESTDIR)/etc/xlunch/entries.dsv
+ 	rm $(DESTDIR)/etc/xlunch/logout.dsv
+
+--- /dev/null
++++ xlunch-slax-4.7.5/slax/entries.dsv
+@@ -0,0 +1 @@
++Terminal;/usr/share/icons/hicolor/128x128/apps/terminal.png;xterm -title Terminal
