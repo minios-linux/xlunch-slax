@@ -16,12 +16,17 @@ install: xlunch
 	cp slax/restart.png $(DESTDIR)/usr/share/icons/hicolor/128x128/actions/restart.png
 	cp slax/shutdown.png $(DESTDIR)/usr/share/icons/hicolor/128x128/actions/shutdown.png
 	mkdir -p $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/
-	cp slax/chromium.png $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/chromium.png
-	cp slax/terminal.png $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/terminal.png
-	cp slax/chromium.png $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/chromium.png
-	cp slax/firefox.png $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/firefox.png
-	cp slax/installer.png $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/installer.png
-	cp slax/configurator.png $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/configurator.png
+	cp slax/chromium-flux.png $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/chromium-flux.png
+	cp slax/terminal-flux.png $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/terminal-flux.png
+	cp slax/firefox-flux.png $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/firefox-flux.png
+	cp slax/installer-flux.png $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/installer-flux.png
+	cp slax/configurator-flux.png $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/configurator-flux.png
+	cp slax/calculator-flux.png $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/calculator-flux.png
+	cp slax/editor-flux.png $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/editor-flux.png
+	cp slax/videoplayer-flux.png $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/videoplayer-flux.png
+	cp slax/preferences-system-network-flux.png $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/preferences-system-network-flux.png
+	cp slax/system-file-manager-flux.png $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/system-file-manager-flux.png
+	cp slax/utilities-system-monitor-flux.png $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/utilities-system-monitor-flux.png
 	cp slax/xlunch_highlight.png $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/xlunch_highlight.png
 	mkdir -p $(DESTDIR)/etc/xlunch
 	cp slax/entries.dsv $(DESTDIR)/etc/xlunch/entries.dsv
@@ -34,11 +39,17 @@ remove:
 	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/actions/logout.png
 	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/actions/restart.png
 	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/actions/shutdown.png
-	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/chromium.png
-	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/terminal.png
-	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/firefox.png
-	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/installer.png
-	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/configurator.png
+	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/chromium-flux.png
+	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/terminal-flux.png
+	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/firefox-flux.png
+	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/installer-flux.png
+	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/configurator-flux.png
+	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/calculator-flux.png
+	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/editor-flux.png
+	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/videoplayer-flux.png
+	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/preferences-system-network-flux.png
+	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/system-file-manager-flux.png
+	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/utilities-system-monitor-flux.png
 	rm $(DESTDIR)/usr/share/icons/hicolor/128x128/apps/xlunch_highlight.png
 	rm $(DESTDIR)/etc/xlunch/entries.dsv
 	rm $(DESTDIR)/etc/xlunch/logout.dsv
