@@ -1,20 +1,20 @@
 #!/bin/bash
 
-ICONSIZES="$1 128 64 48 32" # icon search in given order
-ICONPATHS="/usr/share/icons/hicolor /usr/share/pixmaps /usr/share/icons/gnome"
+# icon sizes in priority order: first argument, then 128, 64, 48, 32
+ICONSIZES="$1 128 64 48 32"
 
-if [ "$1" = "--desktop" -o "$2" = "--desktop" ]; then
-   DESKTOPCMD="yes"
+# icon theme directories
+ICONPATHS="/usr/share/icons/elementary-minios /usr/share/icons/hicolor /usr/share/pixmaps /usr/share/icons/gnome"
+
+# check for --desktop flag
+if [ "$1" = "--desktop" ] || [ "$2" = "--desktop" ]; then
+   DESKTOPCMD=yes
 else
-   DESKTOPCMD=""
+   DESKTOPCMD=
 fi
 
-
-# $1..$n = dir path with .desktop files
-process_directories()
-{
-   while [ "$1" != "" ]; do
-
+process_directories() {
+   while [ -n "$1" ]; do
       for desktop in "$1"/*.desktop; do
 
          Name=
@@ -23,39 +23,54 @@ process_directories()
          Hidden=
          Terminal=
 
-         while read LINE; do
-            eval $LINE
-         done <<< $(tac "$desktop" | egrep '^(Name|Icon|Exec|Hidden|Terminal)=' | sed -r "s/ *%.*//" | sed -r "s/=(.*)/='\\1'/")   #'
+         # read only the needed fields, strip %... placeholders and quote values
+         while read -r LINE; do
+            eval "$LINE"
+         done < <(tac "$desktop" |
+            egrep '^(Name|Icon|Exec|Hidden|Terminal)=' |
+            sed -r "s/ *%.*//" |
+            sed -r "s/=(.*)/='\\1'/")
 
-         if [ "$Hidden" = "true" ]; then
-            continue
-         fi
+         # skip hidden entries
+         [ "$Hidden" = "true" ] && continue
 
+         found=
          for size in $ICONSIZES; do
             for ICONPATH in $ICONPATHS; do
-               icon=$ICONPATH/$size"x"$size/apps/$Icon
-               if [ -f "$icon".png ]; then Icon="$icon".png; break; fi
-               if [ -f "$icon" ]; then Icon=$icon; break 2; fi
-               icon=$ICONPATH/apps/$size"x"$size/$Icon
-               if [ -f "$icon".png ]; then Icon="$icon".png; break; fi
-               if [ -f "$icon" ]; then Icon=$icon; break 2; fi
-               icon=$ICONPATH/$Icon
-               if [ -f "$icon".png ]; then Icon="$icon".png; break; fi
-               if [ -f "$icon" ]; then Icon=$icon; break 2; fi
+
+               # try each extension, SVG first
+               for ext in svg png; do
+                  # old-style size folders
+                  paths=(
+                     "$ICONPATH/${size}x${size}/apps/$Icon.$ext"
+                     "$ICONPATH/apps/${size}x${size}/$Icon.$ext"
+                     # new-style size-as-dir under apps
+                     "$ICONPATH/apps/$size/$Icon.$ext"
+                     # fallback flat apps folder
+                     "$ICONPATH/apps/$Icon.$ext"
+                  )
+                  for variant in "${paths[@]}"; do
+                     if [ -f "$variant" ]; then
+                        Icon="$variant"
+                        found=1
+                        break 4
+                     fi
+                  done
+               done
+
             done
          done
 
-         if [ "$DESKTOPCMD" != "" ]; then
-            Exec="$desktop"
-         fi
+         # if --desktop was passed, use the .desktop path as the Exec command
+         [ -n "$DESKTOPCMD" ] && Exec="$desktop"
 
-         if [ -e "$Icon" ]; then
-            echo "$Name;$Icon;$Exec"
-         fi
+         # output only if an icon was found
+         [ -n "$found" ] && echo "$Name;$Icon;$Exec"
 
       done
-   shift
+      shift
    done
 }
 
+# process the system .desktop directory
 process_directories /usr/share/applications
