@@ -1,5 +1,5 @@
 Source: xlunch-slax
-Section: unknown
+Section: x11
 Priority: optional
 Maintainer: crims0n <crims0n@minios.dev>
 Build-Depends: debhelper-compat (= 13), libimlib2-dev, libx11-dev
@@ -10,10 +10,8 @@ Rules-Requires-Root: no
 Package: xlunch-slax
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Graphical app launcher for X, using pure Xlib and Imlib2.
- xlunch - graphical app launcher for Xorg/X11. It requires only pure Xlib and
- Imlib2. It allows you to run programs, commands, or simply select something out
- of a list using your mouse, keyboard, or both! UTF8 is fully supported meaning
- you can have text of all kinds. The prompt allows you to run arbitrary commands,
- and it works to filter your entries as well. xlunch is also highly configurable,
- both in functionality and style, it can even be used as a desktop!
+Description: Graphical application launcher for X using pure Xlib and Imlib2.
+ Provides a lightweight, mouse- and keyboard-driven interface to launch programs,
+ commands, or custom menu entries. Supports UTF-8 for international text and offers
+ real-time filtering while typing. Highly configurable in both appearance and
+ functionality, xlunch can even function as a minimal desktop environment.
